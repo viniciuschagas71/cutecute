@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>❤️ EU TE AMO ANA BEATRIZ ❤️</title>
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+  h1 {
+    position: relative;
+    color: white;
+    font-size: 55px;
+    text-align: center;
+    letter-spacing: 4px;
+    text-shadow: 0 0 20px white;
+    z-index: 2;
+  }
+  canvas {
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 0;
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<h1>EU TE AMO ANA BEATRIZ ❤️</h1>
+
+<script>
+  let c = document.getElementById('c');
+  let ctx = c.getContext('2d');
+  c.width = window.innerWidth;
+  c.height = window.innerHeight;
+  let stars = [];
+  for (let i = 0; i < 400; i++) {
+    stars.push({
+      x: Math.random() * c.width,
+      y: Math.random() * c.height,
+      z: Math.random() * c.width
+    });
+  }
+  function animate() {
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, c.width, c.height);
+    for (let i = 0; i < stars.length; i++) {
+      let s = stars[i];
+      s.z -= 2;
+      if (s.z <= 0) {
+        s.x = Math.random() * c.width;
+        s.y = Math.random() * c.height;
+        s.z = c.width;
+      }
+      let k = 128 / s.z;
+      let px = (s.x - c.width / 2) * k + c.width / 2;
+      let py = (s.y - c.height / 2) * k + c.height / 2;
+      if (px >= 0 && px <= c.width && py >= 0 && py <= c.height) {
+        let size = (1 - s.z / c.width) * 3;
+        ctx.fillStyle = 'white';
+        ctx.fillRect(px, py, size, size);
+      }
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+</script>
+
+</body>
+</html>
